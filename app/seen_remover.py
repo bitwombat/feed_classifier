@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import hashlib
 
-def remove_seen(getter, tester, lst):
-    return list(filter(lambda x: tester(getter(x)), lst))
+
+def remove_seen(tester, articles):
+    return list(filter(lambda article: tester(article["title_hash"]), articles))
