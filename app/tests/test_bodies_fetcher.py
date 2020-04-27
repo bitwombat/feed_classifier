@@ -6,11 +6,11 @@ from bodies_fetcher import fetch_bodies
 class TestBodiesFetcher:
     def url_fetcher(self, url):
         if url == "http://A":
-            return "A text"
+            return "A body"
         if url == "http://B":
-            return "B text"
+            return "B body"
         if url == "http://C":
-            return "C text"
+            return "C body"
 
     def test_bodies_fetcher(self):
         assert fetch_bodies(
@@ -25,18 +25,18 @@ class TestBodiesFetcher:
                 "title": "A",
                 "title_hash": "559aead",
                 "link": "http://A",
-                "body": "A text",
+                "body": "A body",
             },
             {
                 "title": "B",
                 "title_hash": "df7e70e",
                 "link": "http://B",
-                "body": "B text",
+                "body": "B body",
             },
             {
                 "title": "C",
                 "title_hash": "6b23c0d",
                 "link": "http://C",
-                "body": "C text",
+                "body": "C body",
             },
         ]

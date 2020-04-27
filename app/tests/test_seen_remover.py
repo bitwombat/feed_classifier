@@ -7,6 +7,7 @@ class TestSeenRemover:
     def getter(self, key):
         def getter_applied(item):
             return item[key]
+
         return getter_applied
 
     def seen_tester(self, hashval):
@@ -16,7 +17,7 @@ class TestSeenRemover:
 
     def test_seen_remover(self):
         assert remove_seen(
-            self.getter('title_hash'),
+            self.getter("title_hash"),
             self.seen_tester,
             [
                 {"title": "A", "title_hash": "559aead", "link": "Alink"},
