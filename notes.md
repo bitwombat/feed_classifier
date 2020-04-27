@@ -8,10 +8,8 @@ fetch_feed(url)
 parse_feed()
 hash_titles()
 remove_seen()
-mark_new_as_seen()
-fetch_articles()
-classify_articles()
+fetch_bodies()
+classify()
 sort()
 output()
-
-
+mark_new_as_seen()
