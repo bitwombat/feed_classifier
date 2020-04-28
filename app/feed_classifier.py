@@ -77,16 +77,37 @@ def saver():
     return mark_as_seen
 
 
+def tell_user(msg, fn, data):
+    print(msg.format(fn(data)))
+    return data
+
+
+def id(x):
+    return x
+
+
 def main():
-    url = "http://www.portnews.com.au/rss.xml"
+    URL = "http://www.portnews.com.au/rss.xml"
 
     articles = pipe(
-        url,
+        URL,
         (
+            partial(tell_user, "Fetching feed...", id),
             fetch_feed,
             parse_feed,
+            partial(
+                tell_user,
+                "Found {} articles in feed",
+                len,
+            ),
             hash_titles,
             partial(remove_seen, tester()),
+            partial(
+                tell_user,
+                "{} articles are new",
+                len,
+            ),
+            partial(tell_user, "Fetching article bodies...", id),
             partial(fetch_bodies, body_fetcher),
             partial(classify, NB_classifier()),
             sort,
