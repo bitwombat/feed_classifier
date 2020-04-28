@@ -5,14 +5,12 @@ from seen_remover import remove_seen
 
 class TestSeenRemover:
 
-    def seen_tester(self, hashval):
-        if hashval == "df7e70e":
-            return False
-        return True
+    def have_seen(self, hashval):
+        return hashval == "df7e70e"
 
     def test_seen_remover(self):
         assert remove_seen(
-            self.seen_tester,
+            self.have_seen,
             [
                 {"title": "A", "title_hash": "559aead", "link": "Alink"},
                 {"title": "B", "title_hash": "df7e70e", "link": "Blink"},
