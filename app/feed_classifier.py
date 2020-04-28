@@ -34,8 +34,10 @@ def pipe(pipe_input, functions):
 
 
 def fetch_feed(url):
+    print("Fetching feed")
     #return "\n".join(open("tests/fixture/rss.xml").readlines())
-    return "\n".join(open("rss.xml").readlines())
+    #return "\n".join(open("rss.xml").readlines())
+    return requests.get(url).text
 
 
 def body_fetcher(url):
@@ -68,7 +70,6 @@ def saver():
         title_hashes = load(PERSISTENCE_FILENAME)
 
     def mark_as_seen(articles):
-        return
         title_hashes.extend([article["title_hash"] for article in articles])
         dump(title_hashes, PERSISTENCE_FILENAME)
         return None

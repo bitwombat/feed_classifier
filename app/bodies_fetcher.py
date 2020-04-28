@@ -11,4 +11,5 @@ def body_fetcher(url_fetcher):
 
 
 def fetch_bodies(url_fetcher, articles):
+    print("Fetching {} new articles".format(len(articles)))
     return list(map(body_fetcher(url_fetcher), articles))
