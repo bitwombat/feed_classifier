@@ -41,39 +41,39 @@ def fetch_feed(url):
 
 def body_fetcher(url):
     page_text = requests.get(url).text
-    soup = BeautifulSoup(page_text, "html.parser")
-    return soup.find(itemprop="articleBody").text
+    page = BeautifulSoup(page_text, "html.parser")
+    return page.find(itemprop="articleBody").text
 
 
 PERSISTENCE_FILENAME = "title_hashes.joblib"
 
 
-def tester():
+def have_seen():
     if not os.path.exists(PERSISTENCE_FILENAME):
         title_hashes = []
         dump(title_hashes, PERSISTENCE_FILENAME)
     else:
         title_hashes = load(PERSISTENCE_FILENAME)
 
-    def tester_applied(title_hash):
+    def have_seen_applied(title_hash):
         return title_hash in title_hashes
 
-    return tester_applied
+    return have_seen_applied
 
 
-def saver():
+def mark_as_seen():
     if not os.path.exists(PERSISTENCE_FILENAME):
         title_hashes = []
         dump(title_hashes, PERSISTENCE_FILENAME)
     else:
         title_hashes = load(PERSISTENCE_FILENAME)
 
-    def mark_as_seen(articles):
+    def mark_as_seen_applied(articles):
         title_hashes.extend([article["title_hash"] for article in articles])
         dump(title_hashes, PERSISTENCE_FILENAME)
         return None
 
-    return mark_as_seen
+    return mark_as_seen_applied
 
 
 def tell_user(msg, fn, data):
@@ -96,7 +96,7 @@ def main():
             parse_feed,
             partial(tell_user, "Found {} articles in feed", len),
             hash_titles,
-            partial(remove_seen, tester()),
+            partial(remove_seen, have_seen()),
             partial(tell_user, "{} articles are new", len),
             partial(tell_user, "Fetching article bodies...", id),
             partial(fetch_bodies, body_fetcher),
@@ -107,7 +107,7 @@ def main():
 
     # Split the classified, sorted articles into two pipes
     print(output(articles))
-    saver()(articles)
+    mark_as_seen()(articles)
 
 
 if __name__ == "__main__":

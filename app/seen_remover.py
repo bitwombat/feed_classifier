@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
 
-def remove_seen(tester, articles):
-    return list(filter(lambda article: not tester(article["title_hash"]), articles))
+def remove_seen(have_seen, articles):
+    return list(filter(lambda article: not have_seen(article["title_hash"]), articles))
