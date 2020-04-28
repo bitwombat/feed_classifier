@@ -16,27 +16,27 @@ class TestBodiesFetcher:
         assert fetch_bodies(
             self.url_fetcher,
             [
-                {"title": "A", "title_hash": "559aead", "link": "http://A"},
-                {"title": "B", "title_hash": "df7e70e", "link": "http://B"},
-                {"title": "C", "title_hash": "6b23c0d", "link": "http://C"},
+                {"title": "A", "title_hash": "559aead", "url": "http://A"},
+                {"title": "B", "title_hash": "df7e70e", "url": "http://B"},
+                {"title": "C", "title_hash": "6b23c0d", "url": "http://C"},
             ],
         ) == [
             {
                 "title": "A",
                 "title_hash": "559aead",
-                "link": "http://A",
+                "url": "http://A",
                 "body": "A body",
             },
             {
                 "title": "B",
                 "title_hash": "df7e70e",
-                "link": "http://B",
+                "url": "http://B",
                 "body": "B body",
             },
             {
                 "title": "C",
                 "title_hash": "6b23c0d",
-                "link": "http://C",
+                "url": "http://C",
                 "body": "C body",
             },
         ]

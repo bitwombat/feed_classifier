@@ -12,6 +12,6 @@ def output(articles):
         if not class_str == article["class"]:
             class_str = article["class"]
             out_str += class_str.capitalize() + " " + "=" * (14 - len(class_str)) + "\n"
-        out_str += article["title"] + " : " + article["link"] + "\n"
+        out_str += article["title"] + " : " + article["url"] + "\n"
 
     return out_str

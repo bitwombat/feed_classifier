@@ -4,7 +4,7 @@ import hashlib
 
 def body_fetcher(url_fetcher):
     def body_fetcher_applied(article):
-        article["body"] = url_fetcher(article["link"])
+        article["body"] = url_fetcher(article["url"])
         return article
 
     return body_fetcher_applied

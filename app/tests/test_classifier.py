@@ -16,29 +16,29 @@ class TestClassifier:
         assert classify(
             self.NB_classifier,
             [
-                {"title": "A", "title_hash": "559aead", "link": "http://A", "body": "A body"},
-                {"title": "B", "title_hash": "df7e70e", "link": "http://B", "body": "B body"},
-                {"title": "C", "title_hash": "6b23c0d", "link": "http://C", "body": "C body"},
+                {"title": "A", "title_hash": "559aead", "url": "http://A", "body": "A body"},
+                {"title": "B", "title_hash": "df7e70e", "url": "http://B", "body": "B body"},
+                {"title": "C", "title_hash": "6b23c0d", "url": "http://C", "body": "C body"},
             ],
         ) == [
             {
                 "title": "A",
                 "title_hash": "559aead",
-                "link": "http://A",
+                "url": "http://A",
                 "body": "A body",
                 "class": "news",
             },
             {
                 "title": "B",
                 "title_hash": "df7e70e",
-                "link": "http://B",
+                "url": "http://B",
                 "body": "B body",
                 "class": "news",
             },
             {
                 "title": "C",
                 "title_hash": "6b23c0d",
-                "link": "http://C",
+                "url": "http://C",
                 "body": "C body",
                 "class": "sports",
             },

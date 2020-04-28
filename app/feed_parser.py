@@ -8,5 +8,5 @@ def parse_feed(feed):
     soup = BeautifulSoup(feed, "lxml-xml")
     items = soup.find_all("item")
     for item in items:
-        articles.append({"title": item.title.string, "link": item.link.string})
+        articles.append({"title": item.title.string, "url": item.link.string})
     return articles
