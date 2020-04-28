@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import hashlib
+from autocurry import autocurry
 
 
 def body_fetcher(url_fetcher):
@@ -10,5 +11,6 @@ def body_fetcher(url_fetcher):
     return body_fetcher_applied
 
 
+@autocurry
 def fetch_bodies(url_fetcher, articles):
     return list(map(body_fetcher(url_fetcher), articles))

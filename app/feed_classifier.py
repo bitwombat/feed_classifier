@@ -5,8 +5,8 @@ import os.path
 import requests
 import sys
 
+from autocurry import autocurry
 from bs4 import BeautifulSoup
-from functools import partial
 from joblib import dump, load
 from pprint import pprint
 
@@ -75,7 +75,7 @@ def mark_as_seen():
 
     return mark_as_seen_applied
 
-
+@autocurry
 def tell_user(msg, fn, data):
     print(msg.format(fn(data)))
     return data
@@ -91,16 +91,16 @@ def main():
     articles = pipe(
         URL,
         (
-            partial(tell_user, "Fetching feed...", id),
+            tell_user("Fetching feed...", id),
             fetch_feed,
             parse_feed,
-            partial(tell_user, "Found {} articles in feed", len),
+            tell_user("Found {} articles in feed", len),
             hash_titles,
-            partial(remove_seen, have_seen()),
-            partial(tell_user, "{} articles are new", len),
-            partial(tell_user, "Fetching article bodies...", id),
-            partial(fetch_bodies, body_fetcher),
-            partial(classify, NB_classifier()),
+            remove_seen(have_seen()),
+            tell_user("{} articles are new", len),
+            tell_user("Fetching article bodies...", id),
+            fetch_bodies(body_fetcher),
+            classify(NB_classifier()),
             sort,
         ),
     )
