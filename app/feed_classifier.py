@@ -34,15 +34,14 @@ def pipe(pipe_input, functions):
 
 
 def fetch_feed(url):
-    print("Fetching feed")
-    #return "\n".join(open("tests/fixture/rss.xml").readlines())
-    #return "\n".join(open("rss.xml").readlines())
+    # return "\n".join(open("tests/fixture/rss.xml").readlines())
+    # return "\n".join(open("rss.xml").readlines())
     return requests.get(url).text
 
 
 def body_fetcher(url):
     page_text = requests.get(url).text
-    soup = BeautifulSoup(page_text, 'html.parser')
+    soup = BeautifulSoup(page_text, "html.parser")
     return soup.find(itemprop="articleBody").text
 
 
