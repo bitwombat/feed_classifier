@@ -4,7 +4,6 @@ from seen_remover import remove_seen
 
 
 class TestSeenRemover:
-
     def have_seen(self, hashval):
         return hashval == "df7e70e"
 

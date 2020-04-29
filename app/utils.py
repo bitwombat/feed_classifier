@@ -3,6 +3,7 @@
 import functools
 from autocurry import autocurry
 
+
 def compose(*functions):
     """ Functional composition """
     return functools.reduce(lambda f, g: lambda x: f(g(x)), functions, lambda x: x)
@@ -23,5 +24,3 @@ def tell_user(msg, fn, data):
 
 def id(x):
     return x
-
-
