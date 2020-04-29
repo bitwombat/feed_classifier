@@ -4,11 +4,11 @@ import functools
 import requests
 import sys
 
-from autocurry import autocurry
 from bs4 import BeautifulSoup
 from pprint import pprint
 
 from persistence import init_or_load_title_hashes, have_seen, mark_as_seen
+from utils import compose, pipe, tell_user, id
 
 from feed_parser import parse_feed
 from titles_hasher import hash_titles
@@ -18,18 +18,6 @@ from classifier import classify
 from NB_classifier import NB_classifier
 from sorter import sort
 from formatter import format_as_text
-
-
-def compose(*functions):
-    """ Functional composition """
-    return functools.reduce(lambda f, g: lambda x: f(g(x)), functions, lambda x: x)
-
-
-def pipe(pipe_input, functions):
-    """ Same as compose, just different order, for more natural pipelining """
-    return functools.reduce(lambda f, g: lambda x: g(f(x)), functions, lambda x: x)(
-        pipe_input
-    )
 
 
 def fetch_feed(url):
@@ -42,16 +30,6 @@ def body_fetcher(url):
     page_text = requests.get(url).text
     page = BeautifulSoup(page_text, "html.parser")
     return page.find(itemprop="articleBody").text
-
-
-@autocurry
-def tell_user(msg, fn, data):
-    print(msg.format(fn(data)))
-    return data
-
-
-def id(x):
-    return x
 
 
 def main():

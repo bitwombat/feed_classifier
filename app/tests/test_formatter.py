@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-from outputter import output
+from formatter import format_as_text
 
 
-class TestOutputter:
-    def test_outputter(self):
+class TestFormatter:
+    def test_formatter(self):
         assert (
-            output(
+            format_as_text(
                 [
                     {
                         "title": "A",
