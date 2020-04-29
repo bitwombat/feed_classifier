@@ -4,9 +4,12 @@
 #
 
 
-def output(articles):
+def format_as_text(articles):
     out_str = ""
     class_str = ""
+    if not articles:
+        out_str = "No articles"
+        return out_str
     for article in articles:
         # Output header if class has changed
         if not class_str == article["class"]:

@@ -17,7 +17,7 @@ from bodies_fetcher import fetch_bodies
 from classifier import classify
 from NB_classifier import NB_classifier
 from sorter import sort
-from outputter import output
+from formatter import format_as_text
 from seen_marker import mark_as_seen
 
 
@@ -106,7 +106,7 @@ def main():
     )
 
     # Split the classified, sorted articles into two pipes
-    print(output(articles))
+    print(format_as_text(articles))
     mark_as_seen()(articles)
 
 
