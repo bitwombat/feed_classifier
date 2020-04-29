@@ -11,6 +11,7 @@ from persistence import init_or_load_title_hashes, have_seen, mark_as_seen
 from utils import compose, pipe, tell_user, id
 
 from feed_parser import parse_feeds
+from duplicate_remover import remove_duplicates
 from titles_hasher import hash_titles
 from seen_remover import remove_seen
 from bodies_fetcher import fetch_bodies
@@ -49,6 +50,8 @@ def main():
                 fetch_feeds,
                 parse_feeds,
                 tell_user("Found {} articles in feed", len),
+                remove_duplicates,
+                tell_user("Of those, {} are unique", len),
                 hash_titles,
                 remove_seen(have_seen(title_hashes)),
                 tell_user("{} articles are new", len),
