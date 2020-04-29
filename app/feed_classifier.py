@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 import functools
-import os.path
 import requests
 import sys
 
 from autocurry import autocurry
 from bs4 import BeautifulSoup
-from joblib import dump, load
 from pprint import pprint
+
+from persistence import init_or_load_title_hashes, have_seen, mark_as_seen
 
 from feed_parser import parse_feed
 from titles_hasher import hash_titles
@@ -18,7 +18,6 @@ from classifier import classify
 from NB_classifier import NB_classifier
 from sorter import sort
 from formatter import format_as_text
-from seen_marker import mark_as_seen
 
 
 def compose(*functions):
@@ -45,37 +44,6 @@ def body_fetcher(url):
     return page.find(itemprop="articleBody").text
 
 
-PERSISTENCE_FILENAME = "title_hashes.joblib"
-
-
-def have_seen():
-    if not os.path.exists(PERSISTENCE_FILENAME):
-        title_hashes = []
-        dump(title_hashes, PERSISTENCE_FILENAME)
-    else:
-        title_hashes = load(PERSISTENCE_FILENAME)
-
-    def have_seen_applied(title_hash):
-        return title_hash in title_hashes
-
-    return have_seen_applied
-
-
-def mark_as_seen():
-    if not os.path.exists(PERSISTENCE_FILENAME):
-        title_hashes = []
-        dump(title_hashes, PERSISTENCE_FILENAME)
-    else:
-        title_hashes = load(PERSISTENCE_FILENAME)
-
-    def mark_as_seen_applied(articles):
-        title_hashes.extend([article["title_hash"] for article in articles])
-        dump(title_hashes, PERSISTENCE_FILENAME)
-        return articles
-
-    return mark_as_seen_applied
-
-
 @autocurry
 def tell_user(msg, fn, data):
     print(msg.format(fn(data)))
@@ -89,6 +57,8 @@ def id(x):
 def main():
     URL = "http://www.portnews.com.au/rss.xml"
 
+    title_hashes = init_or_load_title_hashes()
+
     print(
         pipe(
             URL,
@@ -98,13 +68,13 @@ def main():
                 parse_feed,
                 tell_user("Found {} articles in feed", len),
                 hash_titles,
-                remove_seen(have_seen()),
+                remove_seen(have_seen(title_hashes)),
                 tell_user("{} articles are new", len),
                 tell_user("Fetching article bodies...", id),
                 fetch_bodies(body_fetcher),
                 classify(NB_classifier()),
                 sort,
-                mark_as_seen(),
+                mark_as_seen(title_hashes),
                 format_as_text,
             ),
         )
