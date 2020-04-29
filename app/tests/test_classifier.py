@@ -16,9 +16,24 @@ class TestClassifier:
         assert classify(
             self.NB_classifier,
             [
-                {"title": "A", "title_hash": "559aead", "url": "http://A", "body": "A body"},
-                {"title": "B", "title_hash": "df7e70e", "url": "http://B", "body": "B body"},
-                {"title": "C", "title_hash": "6b23c0d", "url": "http://C", "body": "C body"},
+                {
+                    "title": "A",
+                    "title_hash": "559aead",
+                    "url": "http://A",
+                    "body": "A body",
+                },
+                {
+                    "title": "B",
+                    "title_hash": "df7e70e",
+                    "url": "http://B",
+                    "body": "B body",
+                },
+                {
+                    "title": "C",
+                    "title_hash": "6b23c0d",
+                    "url": "http://C",
+                    "body": "C body",
+                },
             ],
         ) == [
             {

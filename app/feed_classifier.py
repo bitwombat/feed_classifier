@@ -26,6 +26,7 @@ def fetch_feed(url):
     # return "\n".join(open("rss.xml").readlines())
     return requests.get(url).text
 
+
 def fetch_feeds(urls):
     return list(map(fetch_feed, urls))
 
@@ -37,8 +38,10 @@ def body_fetcher(url):
 
 
 def main():
-    URLS = ["http://www.portnews.com.au/rss.xml",
-            "https://www.wauchopegazette.com.au/rss.xml"]
+    URLS = [
+        "http://www.portnews.com.au/rss.xml",
+        "https://www.wauchopegazette.com.au/rss.xml",
+    ]
 
     title_hashes = init_or_load_title_hashes()
 
