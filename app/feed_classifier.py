@@ -10,7 +10,7 @@ from pprint import pprint
 from persistence import init_or_load_title_hashes, have_seen, mark_as_seen
 from utils import compose, pipe, tell_user, id
 
-from feed_parser import parse_feed
+from feed_parser import parse_feeds
 from titles_hasher import hash_titles
 from seen_remover import remove_seen
 from bodies_fetcher import fetch_bodies
@@ -25,6 +25,9 @@ def fetch_feed(url):
     # return "\n".join(open("rss.xml").readlines())
     return requests.get(url).text
 
+def fetch_feeds(urls):
+    return list(map(fetch_feed, urls))
+
 
 def body_fetcher(url):
     page_text = requests.get(url).text
@@ -33,17 +36,18 @@ def body_fetcher(url):
 
 
 def main():
-    URL = "http://www.portnews.com.au/rss.xml"
+    URLS = ["http://www.portnews.com.au/rss.xml",
+            "https://www.wauchopegazette.com.au/rss.xml"]
 
     title_hashes = init_or_load_title_hashes()
 
     print(
         pipe(
-            URL,
+            URLS,
             (
                 tell_user("Fetching feed...", id),
-                fetch_feed,
-                parse_feed,
+                fetch_feeds,
+                parse_feeds,
                 tell_user("Found {} articles in feed", len),
                 hash_titles,
                 remove_seen(have_seen(title_hashes)),

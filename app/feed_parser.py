@@ -10,3 +10,6 @@ def parse_feed(feed):
     for item in items:
         articles.append({"title": item.title.string, "url": item.link.string})
     return articles
+
+def parse_feeds(feeds):
+    return sum(list(map(parse_feed, feeds)), [])
