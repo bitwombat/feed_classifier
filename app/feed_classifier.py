@@ -71,7 +71,7 @@ def mark_as_seen():
     def mark_as_seen_applied(articles):
         title_hashes.extend([article["title_hash"] for article in articles])
         dump(title_hashes, PERSISTENCE_FILENAME)
-        return None
+        return articles
 
     return mark_as_seen_applied
 
@@ -102,12 +102,11 @@ def main():
             fetch_bodies(body_fetcher),
             classify(NB_classifier()),
             sort,
+            mark_as_seen(),
         ),
     )
 
-    # Split the classified, sorted articles into two pipes
     print(format_as_text(articles))
-    mark_as_seen()(articles)
 
 
 if __name__ == "__main__":
