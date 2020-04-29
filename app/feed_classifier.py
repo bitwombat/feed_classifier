@@ -49,10 +49,10 @@ def main():
         pipe(
             URLS,
             (
-                tell_user("Fetching feed...", id),
+                tell_user("Fetching feeds...", id),
                 fetch_feeds,
                 parse_feeds,
-                tell_user("Found {} articles in feed", len),
+                tell_user("Found {} articles in feeds", len),
                 remove_duplicates,
                 tell_user("Of those, {} are unique", len),
                 hash_titles,
