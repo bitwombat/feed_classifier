@@ -3,7 +3,7 @@
 import os.path
 from joblib import dump, load
 
-PERSISTENCE_FILENAME = "title_hashes.joblib"
+PERSISTENCE_FILENAME = "title_hashes.db"
 
 
 def init_or_load_title_hashes():
