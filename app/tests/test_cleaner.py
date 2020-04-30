@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from feed_classifier.cleaner import clean, enumerate
+from feed_classifier.cleaner import clean
 
 
 class TestCleaner:
@@ -22,13 +22,3 @@ class TestCleaner:
             clean(r"$sixteen (seventeen) 18eighteen :nineteen")
             == "$sixteen seventeen eighteen nineteen"
         )
-
-    def test_enumerating(self):
-        assert enumerate("A A A A B B B B C C D D D E F F") == {
-            "A": 4,
-            "B": 4,
-            "C": 2,
-            "D": 3,
-            "E": 1,
-            "F": 2,
-        }
