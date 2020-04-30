@@ -20,13 +20,11 @@ import functools
 import requests
 import sys
 
-from persistence import init_or_load_title_hashes, have_seen, mark_as_seen
+from persistence import init_or_load_title_hashes
 from utils import compose, pipe, tell_user, id
-from bs4 import BeautifulSoup
 
 # Pipeline components
 from feeds_fetcher import fetch_feeds
-# from dummy_feeds_fetcher import fetch_feeds
 from feeds_parser import parse_feeds
 from duplicate_remover import remove_duplicates
 from titles_hasher import hash_titles
@@ -34,18 +32,19 @@ from seen_remover import remove_seen
 from bodies_fetcher import fetch_bodies
 from classifier import classify
 from sorter import sort
+from persistence import mark_as_seen
 from formatter import format_as_text
 
 
-# Injected dependencies
-from persistence import have_seen, mark_as_seen
+# Dependencies injected for testing purposes
+# Note there's a 'dummy' module which has versions of the functions in
+# `internet` that don't connect to the internet. For end-to-end testing.
+# TODO:
+# implement dummy versions of the persistence functions, also for testing.
+
+from internet import feed_fetcher, body_fetcher
 from NB_classifier import NB_classifier
-
-
-def body_fetcher(url):
-    page_text = requests.get(url).text
-    page = BeautifulSoup(page_text, "html.parser")
-    return page.find(itemprop="articleBody").text
+from persistence import have_seen
 
 
 def main():
@@ -61,7 +60,7 @@ def main():
             URLS,
             (
                 tell_user("Fetching {} feeds...", len),
-                fetch_feeds,
+                fetch_feeds(feed_fetcher),
                 parse_feeds,
                 tell_user("Found {} articles", len),
                 remove_duplicates,

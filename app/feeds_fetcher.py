@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
-import requests
-
-def fetch_feed(url):
-    return requests.get(url).text
+from autocurry import autocurry
 
 
-def fetch_feeds(urls):
-    return list(map(fetch_feed, urls))
+@autocurry
+def fetch_feeds(feed_fetcher, urls):
+    return list(map(feed_fetcher, urls))

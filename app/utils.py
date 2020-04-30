@@ -19,7 +19,7 @@ def pipe(pipe_input, functions):
 @autocurry
 def tell_user(msg, fn, data):
     print(msg.format(fn(data)))
-    return data
+    return data  # pass-thru
 
 
 def id(x):
