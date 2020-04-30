@@ -1,16 +1,11 @@
 #!/usr/bin/env python
-import hashlib
 from autocurry import autocurry
 
-
-def body_fetcher(url_fetcher):
-    def body_fetcher_applied(article):
-        article["body"] = url_fetcher(article["url"])
-        return article
-
-    return body_fetcher_applied
-
+@autocurry
+def pop_body_into_article(body_fetcher, article):
+    article["body"] = body_fetcher(article["url"])
+    return article
 
 @autocurry
-def fetch_bodies(url_fetcher, articles):
-    return list(map(body_fetcher(url_fetcher), articles))
+def fetch_bodies(body_fetcher, articles):
+    return list(map(pop_body_into_article(body_fetcher), articles))

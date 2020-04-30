@@ -9,21 +9,21 @@ class TestSorter:
             [
                 {
                     "title": "A",
-                    "title_hash": "559aead",
+                    "title-hash": "559aead",
                     "url": "http://A",
                     "body": "A body",
                     "class": "Z",
                 },
                 {
                     "title": "B",
-                    "title_hash": "df7e70e",
+                    "title-hash": "df7e70e",
                     "url": "http://B",
                     "body": "B body",
                     "class": "Y",
                 },
                 {
                     "title": "C",
-                    "title_hash": "6b23c0d",
+                    "title-hash": "6b23c0d",
                     "url": "http://C",
                     "body": "C body",
                     "class": "X",
@@ -32,21 +32,21 @@ class TestSorter:
         ) == [
             {
                 "title": "C",
-                "title_hash": "6b23c0d",
+                "title-hash": "6b23c0d",
                 "url": "http://C",
                 "body": "C body",
                 "class": "X",
             },
             {
                 "title": "B",
-                "title_hash": "df7e70e",
+                "title-hash": "df7e70e",
                 "url": "http://B",
                 "body": "B body",
                 "class": "Y",
             },
             {
                 "title": "A",
-                "title_hash": "559aead",
+                "title-hash": "559aead",
                 "url": "http://A",
                 "body": "A body",
                 "class": "Z",

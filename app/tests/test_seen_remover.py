@@ -11,11 +11,11 @@ class TestSeenRemover:
         assert remove_seen(
             self.have_seen,
             [
-                {"title": "A", "title_hash": "559aead", "url": "Aurl"},
-                {"title": "B", "title_hash": "df7e70e", "url": "Burl"},
-                {"title": "C", "title_hash": "6b23c0d", "url": "Curl"},
+                {"title": "A", "title-hash": "559aead", "url": "Aurl"},
+                {"title": "B", "title-hash": "df7e70e", "url": "Burl"},
+                {"title": "C", "title-hash": "6b23c0d", "url": "Curl"},
             ],
         ) == [
-            {"title": "A", "title_hash": "559aead", "url": "Aurl"},
-            {"title": "C", "title_hash": "6b23c0d", "url": "Curl"},
+            {"title": "A", "title-hash": "559aead", "url": "Aurl"},
+            {"title": "C", "title-hash": "6b23c0d", "url": "Curl"},
         ]

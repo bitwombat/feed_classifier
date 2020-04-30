@@ -1,34 +1,45 @@
 #!/usr/bin/env python
 
+# Classifies articles in local news feeds as "news" or "sports", displaying
+# only articles not seen before.
+#
+# Side note: Instead of storing a hash of each title, we could have saved the
+# hassel of persisting all (and therefore having to clean out old articles in
+# case a title was re-used in the future), by simply diff'ing with the previous
+# output to get the new ones.  But, what if an article went off the feed, then
+# came back on?  Diff would report it as new, but this possibly over-engineered
+# solution won't be fooled.
+#
+# Instead of cleaning out old articles from stories, I could instead have combined the
+# article id with the title for the hash - much more likely to be unique into
+# the future. But this wouldn't work, because some stories that were in both
+# feeds had the same title, but different story id's (and sometimes the same
+# id). This would have caused them to be doubled-up on the output.
+
 import functools
 import requests
 import sys
 
-from bs4 import BeautifulSoup
-from pprint import pprint
-
 from persistence import init_or_load_title_hashes, have_seen, mark_as_seen
 from utils import compose, pipe, tell_user, id
+from bs4 import BeautifulSoup
 
-from feed_parser import parse_feeds
+# Pipeline components
+from feeds_fetcher import fetch_feeds
+# from dummy_feeds_fetcher import fetch_feeds
+from feeds_parser import parse_feeds
 from duplicate_remover import remove_duplicates
 from titles_hasher import hash_titles
 from seen_remover import remove_seen
 from bodies_fetcher import fetch_bodies
 from classifier import classify
-from NB_classifier import NB_classifier
 from sorter import sort
 from formatter import format_as_text
 
 
-def fetch_feed(url):
-    # return "\n".join(open("tests/fixture/rss.xml").readlines())
-    # return "\n".join(open("rss.xml").readlines())
-    return requests.get(url).text
-
-
-def fetch_feeds(urls):
-    return list(map(fetch_feed, urls))
+# Injected dependencies
+from persistence import have_seen, mark_as_seen
+from NB_classifier import NB_classifier
 
 
 def body_fetcher(url):
@@ -49,15 +60,15 @@ def main():
         pipe(
             URLS,
             (
-                tell_user("Fetching feeds...", id),
+                tell_user("Fetching {} feeds...", len),
                 fetch_feeds,
                 parse_feeds,
-                tell_user("Found {} articles in feeds", len),
+                tell_user("Found {} articles", len),
                 remove_duplicates,
                 tell_user("Of those, {} are unique", len),
                 hash_titles,
                 remove_seen(have_seen(title_hashes)),
-                tell_user("{} articles are new", len),
+                tell_user("{} are new", len),
                 tell_user("Fetching article bodies...", id),
                 fetch_bodies(body_fetcher),
                 classify(NB_classifier()),

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from feed_parser import parse_feeds
+from feeds_parser import parse_feeds
 
 
-class TestFeedParser:
-    def test_feed_parser(self):
+class TestFeedsParser:
+    def test_feeds_parser(self):
         feeds = [
             "\n".join(open("tests/fixture/rss.xml").readlines()),
             "\n".join(open("tests/fixture/rss2.xml").readlines()),

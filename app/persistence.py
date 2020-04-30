@@ -24,7 +24,7 @@ def have_seen(title_hashes):
 
 def mark_as_seen(title_hashes):
     def mark_as_seen_applied(articles):
-        title_hashes.extend([article["title_hash"] for article in articles])
+        title_hashes.extend([article["title-hash"] for article in articles])
         dump(title_hashes, PERSISTENCE_FILENAME)
         return articles
 

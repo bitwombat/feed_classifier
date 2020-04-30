@@ -4,7 +4,7 @@ from bodies_fetcher import fetch_bodies
 
 
 class TestBodiesFetcher:
-    def url_fetcher(self, url):
+    def body_fetcher(self, url):
         if url == "http://A":
             return "A body"
         if url == "http://B":
@@ -14,28 +14,28 @@ class TestBodiesFetcher:
 
     def test_bodies_fetcher(self):
         assert fetch_bodies(
-            self.url_fetcher,
+            self.body_fetcher,
             [
-                {"title": "A", "title_hash": "559aead", "url": "http://A"},
-                {"title": "B", "title_hash": "df7e70e", "url": "http://B"},
-                {"title": "C", "title_hash": "6b23c0d", "url": "http://C"},
+                {"title": "A", "title-hash": "559aead", "url": "http://A"},
+                {"title": "B", "title-hash": "df7e70e", "url": "http://B"},
+                {"title": "C", "title-hash": "6b23c0d", "url": "http://C"},
             ],
         ) == [
             {
                 "title": "A",
-                "title_hash": "559aead",
+                "title-hash": "559aead",
                 "url": "http://A",
                 "body": "A body",
             },
             {
                 "title": "B",
-                "title_hash": "df7e70e",
+                "title-hash": "df7e70e",
                 "url": "http://B",
                 "body": "B body",
             },
             {
                 "title": "C",
-                "title_hash": "6b23c0d",
+                "title-hash": "6b23c0d",
                 "url": "http://C",
                 "body": "C body",
             },
