@@ -4,6 +4,7 @@ import requests
 import sys
 import re
 
+from feed_classifier.cleaner import clean
 from bs4 import BeautifulSoup
 
 
@@ -21,6 +22,7 @@ def main():
 
     url = sys.argv[1]
     body = body_fetcher(url)
+    body = clean(body)
 
     fname = url.split("/")[4] + ".art"
 
