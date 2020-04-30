@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from feeds_parser import parse_feeds
+from pipeline.feeds_parser import parse_feeds
 
 
 class TestFeedsParser:

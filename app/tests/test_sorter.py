@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from sorter import sort
+from pipeline.sorter import sort
 
 
 class TestSorter:

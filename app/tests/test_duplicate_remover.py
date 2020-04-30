@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from duplicate_remover import remove_duplicates
+from pipeline.duplicate_remover import remove_duplicates
 
 
 # Multiple local news feeds may publish the same story.

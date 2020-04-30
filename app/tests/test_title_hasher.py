@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from title_hasher import hash_titles
+from pipeline.titles_hasher import hash_titles
 
 
 class TestTitleHasher:

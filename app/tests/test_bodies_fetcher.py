@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from bodies_fetcher import fetch_bodies
+from pipeline.bodies_fetcher import fetch_bodies
 
 
 class TestBodiesFetcher:

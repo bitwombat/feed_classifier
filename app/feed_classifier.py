@@ -24,14 +24,14 @@ from persistence import init_or_load_title_hashes
 from utils import compose, pipe, tell_user, id
 
 # Pipeline components
-from feeds_fetcher import fetch_feeds
-from feeds_parser import parse_feeds
-from duplicate_remover import remove_duplicates
-from titles_hasher import hash_titles
-from seen_remover import remove_seen
-from bodies_fetcher import fetch_bodies
-from classifier import classify
-from sorter import sort
+from pipeline.feeds_fetcher import fetch_feeds
+from pipeline.feeds_parser import parse_feeds
+from pipeline.duplicate_remover import remove_duplicates
+from pipeline.titles_hasher import hash_titles
+from pipeline.seen_remover import remove_seen
+from pipeline.bodies_fetcher import fetch_bodies
+from pipeline.classifier import classify
+from pipeline.sorter import sort
 from persistence import mark_as_seen
 from formatter import format_as_text
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from classifier import classify
+from pipeline.classifier import classify
 
 
 class TestClassifier:

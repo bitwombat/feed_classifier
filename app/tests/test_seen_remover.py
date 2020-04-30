@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from seen_remover import remove_seen
+from pipeline.seen_remover import remove_seen
 
 
 class TestSeenRemover:
