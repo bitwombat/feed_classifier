@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from formatter import format_as_text
+from feed_classifier.formatter import format_as_text
 
 
 class TestFormatter:

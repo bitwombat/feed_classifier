@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-import trainer
+
+from feed_classifier.cleaner import clean
 from glob import glob
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
@@ -10,7 +11,7 @@ def files_to_list(path):
     files_contents = []
     for path in glob(path + "/*"):
         with open(path) as f:
-            files_contents.append(trainer.clean("\n".join(f.readlines())))
+            files_contents.append(clean("\n".join(f.readlines())))
     return files_contents
 
 

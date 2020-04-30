@@ -20,8 +20,8 @@ import functools
 import requests
 import sys
 
-from persistence import init_or_load_title_hashes
-from utils import compose, pipe, tell_user, id
+from feed_classifier.persistence import init_or_load_title_hashes
+from feed_classifier.utils import compose, pipe, tell_user, id
 
 # Pipeline components
 from pipeline.feeds_fetcher import fetch_feeds
@@ -32,8 +32,8 @@ from pipeline.seen_remover import remove_seen
 from pipeline.bodies_fetcher import fetch_bodies
 from pipeline.classifier import classify
 from pipeline.sorter import sort
-from persistence import mark_as_seen
-from formatter import format_as_text
+from feed_classifier.persistence import mark_as_seen
+from feed_classifier.formatter import format_as_text
 
 
 # Dependencies injected for testing purposes
@@ -42,9 +42,9 @@ from formatter import format_as_text
 # TODO:
 # implement dummy versions of the persistence functions, also for testing.
 
-from internet import feed_fetcher, body_fetcher
-from NB_classifier import NB_classifier
-from persistence import have_seen
+from feed_classifier.internet import feed_fetcher, body_fetcher
+from feed_classifier.NB_classifier import NB_classifier
+from feed_classifier.persistence import have_seen
 
 
 def main():
