@@ -8,3 +8,4 @@ rss.xml
 share/
 tests/__pycache__/
 title_hashes.db
+title_hashes.json
