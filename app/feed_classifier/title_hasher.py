@@ -3,6 +3,7 @@ import hashlib
 
 
 def hash_titles(article_list):
+    """Add a title-hash key to each article dict"""
     new_article_list = []
     for article in article_list:
         h = hashlib.sha256()

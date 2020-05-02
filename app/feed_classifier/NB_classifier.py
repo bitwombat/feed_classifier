@@ -7,7 +7,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import make_pipeline
 
 
-def files_to_list(path):
+def path_to_contents(path):
+    """Reads contents of all files on the path into a list, one entry per file."""
     files_contents = []
     for path in glob(path + "/*"):
         with open(path) as f:
@@ -16,8 +17,9 @@ def files_to_list(path):
 
 
 def NB_classifier():
-    news = files_to_list("training_data/news/")
-    sports = files_to_list("training_data/sports/")
+    """Trains and returns a naive Bayes classifier"""
+    news = path_to_contents("training_data/news/")
+    sports = path_to_contents("training_data/sports/")
 
     model = make_pipeline(CountVectorizer(), MultinomialNB())
 

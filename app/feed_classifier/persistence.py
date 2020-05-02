@@ -12,6 +12,7 @@ date_re = re.compile(r"^\w+, (\d+) (\w+) (\d+) (\d+):(\d+):(\d+)")
 
 
 def is_fresh(datestr):
+    """Predicate that returns True if the date is less than 60 days ago"""
     conv = {v: k for k, v in enumerate(calendar.month_abbr)}
     day, month, year, hour, minute, second = date_re.findall(datestr)[0]
     this_dt = datetime(
@@ -23,6 +24,7 @@ def is_fresh(datestr):
 
 
 def retire_old_hashes(titles):
+    """Filters out any saved hashes that are more than 60 days old"""
     return list(filter(lambda x: is_fresh(x[1]), titles))
 
 
@@ -46,15 +48,8 @@ def load_title_hashes():
     return title_hashes
 
 
-def have_seen(title_hashes):
-    def have_seen_applied(title_hash):
-        just_hashes = [entry[0] for entry in title_hashes]
-        return title_hash in just_hashes
-
-    return have_seen_applied
-
-
 def mark_as_seen(title_hashes):
+    """Saves database of seen articles to file on disk"""
     def mark_as_seen_applied(articles):
         title_hashes.extend(
             [(article["title-hash"], article["publish-date"]) for article in articles]

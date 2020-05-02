@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
-# Articles are sorted at this point, so we'll be outputting by class for free.
-#
-
-
 def format_as_text(articles):
+    """Turn the article list into a string, ready to print"""
     out_str = ""
     class_str = ""
+
     if not articles:
         out_str = "No articles"
         return out_str
+
     first_header = True
+
     for article in articles:
         # Output header if class has changed
         if not class_str == article["class"]:
