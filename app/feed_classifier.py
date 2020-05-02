@@ -20,7 +20,7 @@ import functools
 import requests
 import sys
 
-from feed_classifier.persistence import init_or_load_title_hashes
+from feed_classifier.persistence import load_title_hashes
 from feed_classifier.utils import compose, pipe, say, id
 
 # Pipeline components
@@ -52,7 +52,7 @@ def main():
         "https://www.wauchopegazette.com.au/rss.xml",
     ]
 
-    title_hashes = init_or_load_title_hashes()
+    title_hashes = load_title_hashes()
 
     print(
         pipe(
