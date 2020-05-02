@@ -21,7 +21,7 @@ import requests
 import sys
 
 from feed_classifier.persistence import init_or_load_title_hashes
-from feed_classifier.utils import compose, pipe, tell_user, id
+from feed_classifier.utils import compose, pipe, say, id
 
 # Pipeline components
 from pipeline.feeds_fetcher import fetch_feeds
@@ -41,7 +41,6 @@ from feed_classifier.formatter import format_as_text
 # `internet` that don't connect to the internet. For end-to-end testing.
 # TODO:
 # implement dummy versions of the persistence functions, also for testing.
-
 from feed_classifier.internet import feed_fetcher, body_fetcher
 from feed_classifier.NB_classifier import NB_classifier
 from feed_classifier.persistence import have_seen
@@ -59,16 +58,16 @@ def main():
         pipe(
             URLS,
             (
-                tell_user("Fetching {} feeds...", len),
+                say("Fetching {} feeds...", len),
                 fetch_feeds(feed_fetcher),
                 parse_feeds,
-                tell_user("Found {} articles", len),
+                say("Found {} articles", len),
                 remove_duplicates,
-                tell_user("Of those, {} are unique", len),
+                say("Of those, {} are unique", len),
                 hash_titles,
                 remove_seen(have_seen(title_hashes)),
-                tell_user("{} are new", len),
-                tell_user("Fetching article bodies...", id),
+                say("{} are new", len),
+                say("Fetching article bodies...", id),
                 fetch_bodies(body_fetcher),
                 classify(NB_classifier()),
                 sort,
