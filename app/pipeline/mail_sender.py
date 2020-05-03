@@ -6,8 +6,8 @@ from autocurry import autocurry
 
 @autocurry
 def sendmail(recipients, text):
-    SERVER = "server"
-    FROM = "greg@gbell.bitwombat.com.au"
+    SERVER = ""
+    FROM = ""
     SUBJECT = "New Local Stories"
 
     email = """\

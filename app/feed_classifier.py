@@ -40,17 +40,14 @@ from feed_classifier.formatter import format_as_text
 # Dependencies injected for testing purposes
 # Note there's a 'dummy' module which has versions of the functions in
 # `internet` that don't connect to the internet. For end-to-end testing.
-# TODO:
-# implement dummy versions of the persistence functions, also for testing.
 from feed_classifier.internet import feed_fetcher, body_fetcher
 from feed_classifier.NB_classifier import NB_classifier
 from feed_classifier.persistence import have_seen
 
 
 def main():
+    # URL to rss.xml's
     URLS = [
-        "http://www.portnews.com.au/rss.xml",
-        "https://www.wauchopegazette.com.au/rss.xml",
     ]
 
     title_hashes = load_title_hashes()
@@ -74,7 +71,7 @@ def main():
             mark_as_seen(title_hashes),
             format_as_text,
             toolz.juxt(
-                print, sendmail(["greg@bitwombat.com.au", "jillbell2@yahoo.com"])
+                print, sendmail([])
             ),
         ),
     )
