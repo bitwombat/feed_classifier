@@ -5,6 +5,8 @@ import json
 import re
 import calendar
 from datetime import datetime
+from toolz.itertoolz import pluck
+
 
 PERSISTENCE_FILENAME = "title_hashes.json"
 
@@ -31,8 +33,7 @@ def retire_old_hashes(titles):
 def have_seen(title_hashes):
     """Returns predicate function for determining if a title has been seen before"""
     def have_seen_applied(title_hash):
-        just_hashes = [entry[0] for entry in title_hashes]
-        return title_hash in just_hashes
+        return title_hash in pluck(0, title_hashes)
 
     return have_seen_applied
 
