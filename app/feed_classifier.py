@@ -16,7 +16,7 @@
 # feeds had the same title, but different story id's (and sometimes the same
 # id). This would have caused them to be doubled-up on the output.
 
-import functools
+import toolz
 import requests
 import sys
 
@@ -32,6 +32,7 @@ from pipeline.seen_remover import remove_seen
 from pipeline.bodies_fetcher import fetch_bodies
 from pipeline.classifier import classify
 from pipeline.sorter import sort
+from pipeline.mail_sender import sendmail
 from feed_classifier.persistence import mark_as_seen
 from feed_classifier.formatter import format_as_text
 
@@ -54,27 +55,28 @@ def main():
 
     title_hashes = load_title_hashes()
 
-    print(
-        pipe(
-            URLS,
-            (
-                say("Fetching {} feeds...", len),
-                fetch_feeds(feed_fetcher),
-                parse_feeds,
-                say("Found {} articles", len),
-                remove_duplicates,
-                say("Of those, {} are unique", len),
-                hash_titles,
-                remove_seen(have_seen(title_hashes)),
-                say("{} are new", len),
-                say("Fetching article bodies...", id),
-                fetch_bodies(body_fetcher),
-                classify(NB_classifier()),
-                sort,
-                mark_as_seen(title_hashes),
-                format_as_text,
+    pipe(
+        URLS,
+        (
+            say("Fetching {} feeds...", len),
+            fetch_feeds(feed_fetcher),
+            parse_feeds,
+            say("Found {} articles", len),
+            remove_duplicates,
+            say("Of those, {} are unique", len),
+            hash_titles,
+            remove_seen(have_seen(title_hashes)),
+            say("and {} are new", len),
+            say("Fetching article bodies...", id),
+            fetch_bodies(body_fetcher),
+            classify(NB_classifier()),
+            sort,
+            mark_as_seen(title_hashes),
+            format_as_text,
+            toolz.juxt(
+                print, sendmail(["greg@bitwombat.com.au", "jillbell2@yahoo.com"])
             ),
-        )
+        ),
     )
 
 
