@@ -21,9 +21,9 @@ manually put the resulting file in either `training_data/news` or
 `training_data/sports` dir.
 
 ## Other setup
-`pip install -r requirements.txt`
-Add your feed URLs and email to `feed_classifier.py`
-Configure your email server in `pipeline/mail_sender.py`
+- `pip install -r requirements.txt`
+- Add your feed URLs and email to `feed_classifier.py`
+- Configure your email server in `pipeline/mail_sender.py`
 
 ## Running
 Run `feed_classifier.py`, no arguments required.
