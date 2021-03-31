@@ -4,7 +4,7 @@ black==19.3b0
 bpython==0.18
 flake8==3.7.9
 joblib==0.14.1
-lxml==4.5.0
+lxml==4.6.3
 pytest==5.1.1
 requests==2.22.0
 scikit-learn==0.22.2.post1
